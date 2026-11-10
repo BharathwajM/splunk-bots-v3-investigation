@@ -29,7 +29,15 @@ jobs:
       - name: Install sigma-cli and the Splunk backend
         run: pip install sigma-cli pysigma-backend-splunk
       - name: Check rules against the Sigma specification
-        run: sigma check --fail-on-error --fail-on-issues detections/sigma/ | tee check.txt
+        run: sigma check --fail-on-error --fail-on-issues detections/sigma/ 2>&1 | tee check.txt
+      - name: Publish the check result, pass or fail (readable without signing in)
+        if: always()
+        shell: python
+        run: |
+          import os
+          text = open("check.txt").read().strip() if os.path.exists("check.txt") else "no output"
+          text = text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+          print(f"::notice title=sigma check output::{text}")
       - name: Convert the Windows rules to Splunk SPL (Sysmon field mapping)
         run: |
           sigma convert --target splunk --pipeline splunk_windows \
@@ -54,7 +62,6 @@ jobs:
           def notice(title, text):
               text = text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
               print(f"::notice title={title}::{text}")
-          notice("sigma check", open("check.txt").read().strip())
           queries = [q for q in open("converted.spl").read().splitlines() if q.strip()]
           for i in range(0, len(queries), 3):
               notice(f"Splunk SPL {i // 3 + 1}", "\n\n".join(queries[i:i + 3]))

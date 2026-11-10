@@ -1,5 +1,5 @@
 ```
-D07 Windows Firewall turned off from the command line (T1562.004)
+D07 Windows Firewall turned off from the command line (T1686.003)
 Sysmon event 1. Sigma version: detections/sigma/D07-windows-firewall-disabled.yml
 ```
 index=botsv3 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>" netsh

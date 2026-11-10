@@ -42,7 +42,7 @@ None of these detections uses anything learned from the investigation (no attack
 | D04 | [Browser launches hidden PowerShell](detections/splunk/D04-browser-launches-hidden-powershell.spl) | T1059.001 | 09:59:48, all 3 laptops | [yml](detections/sigma/D04-browser-launches-hidden-powershell.yml) |
 | D05 | [UAC bypass via ms-settings](detections/splunk/D05-uac-bypass-ms-settings.spl) | T1548.002 | 10:07:05 | [yml](detections/sigma/D05-uac-bypass-ms-settings.yml) |
 | D06 | [Local admin from the command line](detections/splunk/D06-local-account-added-to-administrators.spl) | T1136.001 | 10:08:17 | [yml](detections/sigma/D06-local-admin-from-command-line.yml) |
-| D07 | [Windows Firewall turned off](detections/splunk/D07-windows-firewall-disabled.spl) | T1562.004 | 10:46:29 | [yml](detections/sigma/D07-windows-firewall-disabled.yml) |
+| D07 | [Windows Firewall turned off](detections/splunk/D07-windows-firewall-disabled.spl) | T1686.003 | 10:46:29 | [yml](detections/sigma/D07-windows-firewall-disabled.yml) |
 | D08 | [Web service account runs shell commands](detections/splunk/D08-web-service-account-runs-shell-commands.spl) | T1190 | 11:06:07, about 11 min before root | [yml](detections/sigma/D08-java-spawns-shell.yml) |
 | D09 | [Named pipe reverse shell / uid 0 account](detections/splunk/D09-linux-uid0-account-or-reverse-shell.spl) | T1059.004, T1136.001 | 11:13:03 | [a](detections/sigma/D09a-useradd-uid-0.yml) [b](detections/sigma/D09b-named-pipe-reverse-shell.yml) |
 | D10 | [Mail copied outside / all-mailbox search](detections/splunk/D10-transport-rule-copies-mail-outside.spl) | T1114.002, T1114.003 | 10:48:28 | |

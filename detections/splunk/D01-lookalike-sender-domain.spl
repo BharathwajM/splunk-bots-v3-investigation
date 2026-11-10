@@ -1,5 +1,5 @@
 ```
-D01 Look-alike sender domain (T1566.002, T1656)
+D01 Look-alike sender domain (T1566.002, T1684.001)
 Inbound mail from a domain that contains the company's name but is not one of its real domains.
 Frothly's domains are froth.ly and frothly.onmicrosoft.com. Edit the two lists for another company.
 ```

@@ -6,11 +6,11 @@ description: |
     In BOTS v3 the attacker did this on FYODOR-L before downloading tools.
     Sigma version of detections/splunk/D07-windows-firewall-disabled.spl.
 references:
-    - https://attack.mitre.org/techniques/T1562/004/
+    - https://attack.mitre.org/techniques/T1686/003/
 author: Bharathwaj Murali
 date: 2026-11-10
 tags:
-    - attack.t1562.004
+    - attack.t1686.003
 logsource:
     category: process_creation
     product: windows

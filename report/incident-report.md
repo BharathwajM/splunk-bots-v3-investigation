@@ -78,7 +78,7 @@ I decoded the payloads offline with [`scripts/decode_enc.py`](../scripts/decode_
 
 Sysmon network events show beaconing to 45.77.53.176:443 from ABUNGST-L (1,070 connections, 10:01:04 to 11:59:24) and FYODOR-L (3,850 connections, 10:01:46 to 11:59:36). BSTOLL-L ran the stager twice (09:59:48 and 11:28:40), but its Sysmon config logs few network events, so its C2 traffic isn't visible (query 06).
 
-### 3.4 Privilege escalation and persistence on FYODOR-L (T1548.002, T1136.001, T1053.005, T1546.003, T1562.004)
+### 3.4 Privilege escalation and persistence on FYODOR-L (T1548.002, T1136.001, T1053.005, T1546.003, T1686.003)
 
 | Time | Event | Query |
 |---|---|---|
@@ -214,8 +214,8 @@ Also in [`results/iocs.csv`](../results/iocs.csv).
 | Persistence | T1098.002 Additional Email Delegate Permissions | FullAccess and SendAs on ghoppy |
 | Privilege Escalation | T1548.002 Bypass UAC | fodhelper and ms-settings |
 | Privilege Escalation | T1068 Exploitation for Privilege Escalation | Kernel exploit on hoth |
-| Defense Impairment | T1562.004 Disable or Modify System Firewall | netsh on FYODOR-L |
-| Defense Impairment | T1562.002 Disable Windows Event Logging | Script-block logging switched off by each stager |
+| Defense Impairment | T1686.003 Disable or Modify System Firewall: Windows Host Firewall | netsh on FYODOR-L |
+| Defense Impairment | T1685.001 Disable or Modify Windows Event Log | Script-block logging switched off by each stager |
 | Stealth | T1036.005 Match Legitimate Name | iexeplorer.exe |
 | Stealth | T1027 Obfuscated Files | Encoded PowerShell, nested base64 C2 |
 | Discovery | T1033 System Owner/User Discovery | whoami, id, groups |
@@ -230,7 +230,7 @@ Also in [`results/iocs.csv`](../results/iocs.csv).
 | Exfiltration | T1567.002 Exfiltration to Cloud Storage | blargh.tgz to OneDrive |
 | Impact | T1496 Resource Hijacking | EC2 launch attempts, Coinhive |
 
-ATT&CK v18 replaced the old Defense Evasion tactic with Stealth and Defense Impairment, and the tactic names above follow that. The Sigma rules carry technique tags only for those techniques, because `attack.defense-evasion` no longer passes `sigma check`.
+Every ID above was checked against attack.mitre.org on 10 November 2026. Recent ATT&CK releases replaced the old Defense Evasion tactic with Stealth and Defense Impairment, and moved some techniques to new IDs. Two of them affect this report: Disable or Modify System Firewall (formerly T1562.004) is now T1686.003, and Disable Windows Event Logging (formerly T1562.002) is now T1685.001. The first CI run of the Sigma rules caught the old firewall ID.
 
 ## 6. What would have caught it earlier
 

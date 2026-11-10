@@ -27,7 +27,7 @@ detection:
             - ' firewall '
             - ' opmode '
             - 'disable'
-    condition: selection_image and 1 of selection_advfirewall, selection_legacy
+    condition: selection_image and (selection_advfirewall or selection_legacy)
 falsepositives:
     - Troubleshooting by an administrator
 level: high

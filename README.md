@@ -89,4 +89,4 @@ Each `.spl` file also pastes straight into the Splunk search bar; text between `
 
 ---
 
-*Part of my security portfolio. See also: [SOC monitoring lab (Sentinel)](https://github.com/BharathwajM/soc-portfolio-lab) · [AD attack detection lab (Splunk)](https://github.com/BharathwajM/ad-attack-detection-lab) · [Phishing triage tool (Python)](https://github.com/BharathwajM/phishing-triage-automation) · [Essential Eight hardening lab (PowerShell)](https://github.com/BharathwajM/essential-eight-lab).*
+*Part of my security portfolio. See also: [SOC monitoring lab (Sentinel)](https://github.com/BharathwajM/soc-portfolio-lab) · [AD attack & detection lab (Splunk)](https://github.com/BharathwajM/ad-attack-detection-lab) · [Phishing triage tool (Python)](https://github.com/BharathwajM/phishing-triage-automation) · [Essential Eight hardening lab (PowerShell)](https://github.com/BharathwajM/essential-eight-lab).*

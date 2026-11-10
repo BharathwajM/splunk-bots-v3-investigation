@@ -1,0 +1,4 @@
+host,user,parent,"first_alert",count
+"BSTOLL-L","AzureAD\BudStoll","C:\Windows\System32\browser_broker.exe","2018-08-20 09:59:48",2
+"ABUNGST-L","AzureAD\AlBungstein","C:\Windows\System32\browser_broker.exe","2018-08-20 10:00:54",1
+"FYODOR-L","AzureAD\FyodorMalteskesko","C:\Windows\System32\browser_broker.exe","2018-08-20 10:01:41",1

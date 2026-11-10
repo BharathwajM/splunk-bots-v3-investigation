@@ -1,0 +1,25 @@
+title: UAC Bypass Through the ms-settings Registry Key
+id: 3d24798f-c059-4330-8655-eba89ad8c2c8
+status: experimental
+description: |
+    A value is written under HKCU\Software\Classes\ms-settings\Shell\Open\command. fodhelper.exe
+    and computerdefaults.exe auto-elevate and run the command stored there, so this gives an
+    admin user a high-integrity process without a UAC prompt. Normal software does not write this key.
+    Sigma version of detections/splunk/D05-uac-bypass-ms-settings.spl.
+references:
+    - https://attack.mitre.org/techniques/T1548/002/
+author: Bharathwaj Murali
+date: 2026-11-10
+tags:
+    - attack.privilege-escalation
+    - attack.t1548.002
+logsource:
+    category: registry_set
+    product: windows
+detection:
+    selection:
+        TargetObject|contains: '\ms-settings\Shell\Open\command'
+    condition: selection
+falsepositives:
+    - None expected
+level: high

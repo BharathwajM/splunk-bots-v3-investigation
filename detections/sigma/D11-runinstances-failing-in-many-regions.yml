@@ -1,0 +1,49 @@
+title: Failed EC2 RunInstances Call (Base Rule)
+id: df46534f-84d9-43ef-9fa2-bf6e7326429c
+name: failed_runinstances
+status: experimental
+description: Any RunInstances call that returned an error. Used by the correlation rule below and not meant to alert by itself.
+author: Bharathwaj Murali
+date: 2026-11-10
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource: ec2.amazonaws.com
+        eventName: RunInstances
+    filter_success:
+        errorCode: null
+    condition: selection and not filter_success
+level: informational
+---
+title: One AWS Key Fails to Launch Instances in Several Regions
+id: 9d54a200-2507-46a6-a3a9-878767376b7f
+status: experimental
+description: |
+    One access key gets RunInstances errors in 3 or more regions within 10 minutes. Crypto-miners
+    with a stolen key try many large instance types in every region until something launches.
+    In BOTS v3 the leaked web_admin key failed 576 times in 15 regions in 13 minutes.
+    Sigma version of detections/splunk/D11-runinstances-failing-in-many-regions.spl.
+references:
+    - https://attack.mitre.org/techniques/T1496/
+    - https://attack.mitre.org/techniques/T1078/004/
+author: Bharathwaj Murali
+date: 2026-11-10
+tags:
+    - attack.impact
+    - attack.t1496
+    - attack.t1078.004
+correlation:
+    type: value_count
+    rules:
+        - failed_runinstances
+    group-by:
+        - userIdentity.accessKeyId
+    timespan: 10m
+    condition:
+        gte: 3
+        field: awsRegion
+falsepositives:
+    - Infrastructure-as-code deployments that target several regions and hit service quotas
+level: high

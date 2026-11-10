@@ -1,0 +1,2 @@
+# Keep Unix line endings so the shell scripts run on Linux and in WSL.
+* text=auto eol=lf

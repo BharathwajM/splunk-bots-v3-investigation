@@ -1,0 +1,5 @@
+host,source,count,first,last
+"MKRAEUS-L","DNS lookup of *.coinhive.com",7,"13:27:17","13:28:23"
+"BTUN-L","Symantec blocked JSCoinminer",54,"13:37:31","13:46:45"
+"BSTOLL-L","DNS lookup of *.coinhive.com",21,"13:37:33","13:39:20"
+"BSTOLL-L (from flow data)","Flow to Coinhive server by chrome.exe (AzureAD\BudStoll)",6,"13:37:51","14:05:23"

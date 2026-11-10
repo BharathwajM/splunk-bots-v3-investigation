@@ -1,0 +1,9 @@
+```
+D03 Anonymous sharing link created for a shortcut or script file (T1105, T1204.002)
+Nobody needs a public link to a .lnk, .hta or .js file. Attackers share them to get users to run them.
+```
+index=botsv3 sourcetype=ms:o365:management (Workload=OneDrive OR Workload=SharePoint) Operation=AnonymousLinkCreated
+| eval file=coalesce(SourceFileName, ObjectId)
+| where match(lower(file), "\.(lnk|hta|js|jse|vbs|vbe|wsf|scr|bat|cmd|ps1|exe|iso|img)$")
+| stats min(_time) as first_alert values(file) as file by UserId ClientIP
+| eval first_alert=strftime(first_alert, "%Y-%m-%d %H:%M:%S")

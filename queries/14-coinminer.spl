@@ -1,0 +1,13 @@
+```
+Coin-miner thread - browser crypto-mining (Coinhive). Symantec blocked it on BTUN-L;
+on BSTOLL-L, Chrome reached the Coinhive servers and kept mining for about 28 minutes.
+```
+index=botsv3 (sourcetype=stream:dns coinhive) OR (sourcetype="WinEventLog:Application" JSCoinminer)
+    OR (sourcetype=syslog host=splunkhwf.froth.ly sa="192.168.247.131" (da=37.187.* OR da=217.182.* OR da=104.20.208.59))
+| rex "pn=\"(?<flow_process>[^\"]+)\""
+| rex "liuid=\"(?<flow_user>[^\"]+)\""
+| eval source=case(sourcetype="stream:dns", "DNS lookup of *.coinhive.com", sourcetype="syslog", "Flow to Coinhive server by ".flow_process." (".flow_user.")", true(), "Symantec blocked JSCoinminer")
+| eval host=if(sourcetype="syslog", "BSTOLL-L (from flow data)", host)
+| stats count min(_time) as first max(_time) as last by host source
+| eval first=strftime(first, "%H:%M:%S"), last=strftime(last, "%H:%M:%S")
+| sort first

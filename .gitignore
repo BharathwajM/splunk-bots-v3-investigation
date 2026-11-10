@@ -1,0 +1,9 @@
+# The dataset itself is not redistributed here; download it from github.com/splunk/botsv3.
+*.tgz
+botsv3_data_set/
+
+# Raw encoded Empire payloads. Antivirus flags them; regenerate with queries/05b if needed.
+results/queries/05b-empire-payloads.csv
+
+# Never commit the Splunk admin password file.
+*password*.txt

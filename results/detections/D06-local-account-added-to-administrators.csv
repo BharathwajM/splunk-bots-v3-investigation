@@ -1,0 +1,2 @@
+host,user,"first_alert",count,commands
+"FYODOR-L","AzureAD\FyodorMalteskesko","2018-08-20 10:08:17",4,"""C:\Windows\system32\net.exe"" localgroup administrators svcvnc /add ""C:\Windows\system32\net.exe"" user /add svcvnc <password removed> C:\Windows\system32\net1 localgroup administrators svcvnc /add C:\Windows\system32\net1 user /add svcvnc <password removed>"

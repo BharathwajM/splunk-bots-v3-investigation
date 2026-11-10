@@ -1,0 +1,11 @@
+```
+AWS thread - a security group is opened to the whole internet on UDP 11211 (memcached),
+a port widely abused for DDoS amplification.
+```
+index=botsv3 sourcetype=aws:cloudtrail eventName=AuthorizeSecurityGroupIngress
+| spath requestParameters.groupId output=group
+| spath requestParameters.ipPermissions.items{}.fromPort output=port
+| spath requestParameters.ipPermissions.items{}.ipProtocol output=protocol
+| spath requestParameters.ipPermissions.items{}.ipRanges.items{}.cidrIp output=ipv4
+| spath requestParameters.ipPermissions.items{}.ipv6Ranges.items{}.cidrIpv6 output=ipv6
+| table _time userIdentity.userName sourceIPAddress group protocol port ipv4 ipv6

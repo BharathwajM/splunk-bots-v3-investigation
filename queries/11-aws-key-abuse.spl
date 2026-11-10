@@ -1,0 +1,9 @@
+```
+AWS thread - the leaked web_admin key is used from 4 outside IPs. 139.198.18.205 tries to launch
+large compute instances in 15 regions with boto3 (a typical crypto-mining attempt). Every call failed.
+```
+index=botsv3 sourcetype=aws:cloudtrail userIdentity.userName=web_admin
+| eval result=coalesce(errorCode, "success")
+| stats count dc(awsRegion) as regions min(_time) as first max(_time) as last values(eventName) as events values(result) as results by sourceIPAddress
+| eval first=strftime(first, "%H:%M:%S"), last=strftime(last, "%H:%M:%S")
+| sort first

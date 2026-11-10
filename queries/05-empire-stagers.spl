@@ -1,0 +1,16 @@
+```
+Step 5 - Empire PowerShell stagers (Sysmon process creation). The first one on each host was
+launched by Edge's browser_broker.exe, meaning a user opened the shared .lnk from the browser.
+Decode the -enc payloads offline with scripts/decode_enc.py (it never runs them).
+```
+index=botsv3 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>" "-enc"
+| rex "Name='CommandLine'>(?<cmd>[^<]+)"
+| rex "Name='ParentImage'>(?<parent>[^<]+)"
+| rex "Name='User'>(?<user>[^<]+)"
+| rex "Name='IntegrityLevel'>(?<integrity>[^<]+)"
+| rex field=cmd "(?i)-enc\w*\s+(?<b64>[A-Za-z0-9+/=]{20,})"
+| where isnotnull(b64)
+| rex field=parent "(?<parent_name>[^\\\\]+)$"
+| stats count min(_time) as first by host user integrity parent_name
+| eval first=strftime(first, "%H:%M:%S")
+| sort first

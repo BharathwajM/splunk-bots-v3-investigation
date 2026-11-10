@@ -1,0 +1,9 @@
+```
+Step 6 - Scope the Empire command-and-control traffic to https://45.77.53.176:443 (/admin/get.php).
+```
+index=botsv3 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>3</EventID>" "45.77.53.176"
+| rex "Name='Image'>(?<image>[^<]+)"
+| rex "Name='DestinationPort'>(?<port>\d+)"
+| rex "Name='User'>(?<user>[^<]+)"
+| stats count min(_time) as first max(_time) as last values(port) as ports values(user) as user by host image
+| eval first=strftime(first, "%H:%M:%S"), last=strftime(last, "%H:%M:%S")

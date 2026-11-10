@@ -1,0 +1,10 @@
+```
+Step 2 - Bruce Gist's Edge browser connects to the phishing site www.frothly.com (45.77.53.176).
+Seen in Symantec Endpoint Protection's traffic log.
+```
+index=botsv3 sourcetype=symantec:ep:traffic:file "Remote: 45.77.53.176"
+| rex "Begin: (?<begin>[^,]+)"
+| rex "Application: (?<app>[^,]+)"
+| rex "User: (?<user>[^,]+)"
+| rex "^[^,]+,[^,]+,(?<computer>[^,]+)"
+| stats count min(begin) as first_connection values(app) as app by computer user

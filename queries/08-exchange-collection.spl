@@ -1,0 +1,10 @@
+```
+Step 8 - Email collection with fyodor's account: an all-mailbox search, FullAccess and SendAs
+on ghoppy's mailbox, and a transport rule that blind-copies mail to an outside address.
+```
+index=botsv3 sourcetype=ms:o365:management Workload=Exchange UserId="fyodor@froth.ly"
+| spath Parameters{}.Name output=pn
+| spath Parameters{}.Value output=pv
+| eval parameters=mvjoin(mvzip(pn, pv, "="), " | ")
+| table _time Operation ClientIP parameters
+| sort _time

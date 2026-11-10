@@ -1,0 +1,28 @@
+title: Linux Account Created With User ID 0
+id: cd1e5375-6ccb-4123-9619-2a175038ec0b
+status: experimental
+description: |
+    useradd run with -o (allow a duplicate ID) and -u 0, which creates a second account with root's
+    user ID. In BOTS v3 the attacker added "tomcat7" this way after getting root on hoth.
+    Sigma version of the first half of detections/splunk/D09-linux-uid0-account-or-reverse-shell.spl.
+references:
+    - https://attack.mitre.org/techniques/T1136/001/
+author: Bharathwaj Murali
+date: 2026-11-10
+tags:
+    - attack.persistence
+    - attack.t1136.001
+logsource:
+    category: process_creation
+    product: linux
+detection:
+    selection_image:
+        Image|endswith: '/useradd'
+    selection_uid0:
+        CommandLine|re: '(\s-u\s*0\s|\s-[a-z]*u\s+0\s|--uid\s+0\s)'
+    selection_non_unique:
+        CommandLine|re: '(\s-[a-z]*o|--non-unique)'
+    condition: all of selection_*
+falsepositives:
+    - None expected
+level: critical

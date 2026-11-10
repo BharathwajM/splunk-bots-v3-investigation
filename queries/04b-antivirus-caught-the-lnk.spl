@@ -1,0 +1,14 @@
+```
+Step 4b - Symantec on BGIST-L flagged the shortcut as Backdoor.PsEmpire as soon as OneDrive
+synced it down, and deleted it. The first victim opened the shared link about 90 seconds later.
+```
+index=botsv3 sourcetype=symantec:ep:risk:file PsEmpire
+| rex "Computer name: (?<computer>[^,]+)"
+| rex "Risk name: (?<risk>[^,]+)"
+| rex "Occurrences: \d+,(?<path>[^,]+)"
+| rex "Actual action: (?<action>[^,]+)"
+| rex "Event time: (?<detected>[^,]+)"
+| rex "Inserted: (?<reached_console>[^,]+)"
+| rex "Application hash: (?<sha256>[^,]+)"
+| rex ",User: (?<user>[^,]+)"
+| table detected reached_console computer user risk action path sha256

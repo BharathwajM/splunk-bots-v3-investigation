@@ -1,0 +1,7 @@
+```
+Step 1 - Initial access. The "Quarentined email" phish from the look-alike domain frothly.com
+(real domain: froth.ly), sent from the attacker's server 45.77.53.176.
+```
+index=botsv3 sourcetype=ms:o365:reporting:messagetrace FromIP="45.77.53.176"
+| stats min(_time) as first_seen values(Subject) as subject values(SenderAddress) as sender by RecipientAddress
+| eval first_seen=strftime(first_seen, "%Y-%m-%d %H:%M:%S")

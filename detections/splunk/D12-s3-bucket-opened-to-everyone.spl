@@ -1,0 +1,10 @@
+```
+D12 An S3 bucket ACL grants access to everyone (T1530 exposure)
+A grant to the AllUsers or AuthenticatedUsers group makes the bucket public.
+Sigma version: detections/sigma/D12-s3-acl-grants-everyone.yml
+```
+index=botsv3 sourcetype=aws:cloudtrail eventName=PutBucketAcl ("AllUsers" OR "AuthenticatedUsers")
+| spath requestParameters.bucketName output=bucket
+| rex max_match=10 "acs.amazonaws.com/groups/global/(?<group>AllUsers|AuthenticatedUsers)"
+| stats min(_time) as first_alert values(group) as granted_to by bucket userIdentity.userName sourceIPAddress
+| eval first_alert=strftime(first_alert, "%Y-%m-%d %H:%M:%S")

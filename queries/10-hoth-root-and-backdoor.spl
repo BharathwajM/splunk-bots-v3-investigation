@@ -1,0 +1,15 @@
+```
+Step 10 - Root on hoth through the compiled "colonel" kernel exploit, then a uid 0 backdoor account.
+syslog shows the account being created; osquery shows the commands and their effective uid.
+```
+index=botsv3 host=hoth
+    ((sourcetype=syslog "useradd" "new user")
+     OR (sourcetype=osquery:results name=pack_process-monitoring_proc_events (colonel OR useradd OR loot OR "x:0:")))
+| spath columns.cmdline output=cmd
+| spath columns.euid output=euid
+| eval what=coalesce(cmd, _raw)
+| eval what=replace(what, "(\"-p\" \")[^\"]+", "\1<password removed>")
+| eval what=substr(what, 1, 160)
+| where NOT like(what, "\"/bin/bash\" \"-c\"%")
+| table _time sourcetype euid what
+| sort _time

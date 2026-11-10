@@ -1,0 +1,10 @@
+```
+D01 Look-alike sender domain (T1566.002, T1656)
+Inbound mail from a domain that contains the company's name but is not one of its real domains.
+Frothly's domains are froth.ly and frothly.onmicrosoft.com. Edit the two lists for another company.
+```
+index=botsv3 sourcetype=ms:o365:reporting:messagetrace
+| eval sender_domain=lower(mvindex(split(SenderAddress, "@"), 1))
+| where match(sender_domain, "froth") AND NOT sender_domain IN ("froth.ly", "frothly.onmicrosoft.com")
+| stats min(_time) as first_alert count dc(RecipientAddress) as recipients values(Subject) as subject values(FromIP) as from_ip by sender_domain SenderAddress
+| eval first_alert=strftime(first_alert, "%Y-%m-%d %H:%M:%S")

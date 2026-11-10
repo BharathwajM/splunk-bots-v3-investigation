@@ -1,0 +1,2 @@
+host,user,"first_alert",count,commands
+"FYODOR-L","AzureAD\FyodorMalteskesko","2018-08-20 10:46:29",1,"""C:\Windows\system32\netsh.exe"" advfirewall set allprofiles state off"

@@ -1,0 +1,32 @@
+title: Java Web Server Process Starts a Shell on Linux
+id: e3b8226c-4fdd-48ce-9539-ff4d42041ad0
+status: experimental
+description: |
+    A Java process (Tomcat, Struts, Jenkins and similar) starts sh or bash. Remote code execution
+    bugs in Java web apps run the attacker's commands this way. The SPL version identifies the
+    Tomcat service account instead, because the osquery data in BOTS v3 has no parent process name.
+    Sigma version of detections/splunk/D08-web-service-account-runs-shell-commands.spl.
+references:
+    - https://attack.mitre.org/techniques/T1190/
+    - https://attack.mitre.org/techniques/T1059/004/
+author: Bharathwaj Murali
+date: 2026-11-10
+tags:
+    - attack.initial-access
+    - attack.execution
+    - attack.t1190
+    - attack.t1059.004
+logsource:
+    category: process_creation
+    product: linux
+detection:
+    selection:
+        ParentImage|endswith: '/java'
+        Image|endswith:
+            - '/sh'
+            - '/bash'
+            - '/dash'
+    condition: selection
+falsepositives:
+    - Java apps that legitimately run shell scripts, such as build servers. Baseline them per host
+level: high

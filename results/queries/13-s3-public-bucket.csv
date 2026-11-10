@@ -1,0 +1,19 @@
+"_time","remote_ip",operation,key,status
+"2018-08-20 13:01:46.000 GMT","107.77.212.175","REST.PUT.ACL","-",200
+"2018-08-20 13:02:44.000 GMT","52.66.146.128","REST.PUT.OBJECT","OPEN_BUCKET_PLEASE_FIX.txt",200
+"2018-08-20 13:03:46.000 GMT","35.182.246.222","REST.GET.OBJECT","OPEN_BUCKET_PLEASE_FIX.txt",200
+"2018-08-20 13:03:46.000 GMT","35.182.246.222","REST.GET.OBJECT","frothly_html_memcached.tar.gz",200
+"2018-08-20 13:04:17.000 GMT","35.182.246.222","REST.PUT.OBJECT","frothly_html_memcached.tar.gz",200
+"2018-08-20 13:33:34.000 GMT","54.183.247.244","REST.GET.OBJECT","frothly_html_memcached.tar.gz",301
+"2018-08-20 13:33:35.000 GMT","54.183.247.244","REST.GET.OBJECT","frothly_html_memcached.tar.gz",200
+"2018-08-20 13:57:54.000 GMT","107.77.212.175","REST.PUT.ACL","-",200
+"2018-08-20 13:59:21.000 GMT","107.77.212.175","REST.GET.OBJECT","frothly_html_memcached.tar.gz",200
+"2018-08-20 14:00:23.000 GMT","107.77.212.175","REST.GET.OBJECT","frothly_html_memcached.tar.gz",200
+"2018-08-20 14:04:09.000 GMT","107.77.212.175","REST.GET.OBJECT","frothly_html_memcached.tar.gz",200
+"2018-08-20 14:07:04.000 GMT","107.77.212.175","REST.GET.OBJECT","frothly_html_memcached.tar.gz",200
+"2018-08-20 14:15:05.000 GMT","54.241.141.120","REST.PUT.OBJECT","%25E2%2580%2598%25E2%2580%2599frothly_html_memcached.tar.gz",403
+"2018-08-20 14:19:19.000 GMT","107.77.212.175","REST.PUT.OBJECT","frothly_html_memcached.tar.gz",200
+"2018-08-20 14:23:32.000 GMT","54.67.37.214","REST.GET.OBJECT","frothly_html_memcached.tar.gz",200
+"2018-08-20 14:23:32.000 GMT","54.67.37.214","REST.GET.OBJECT","frothly_html_memcached.tar.gz",301
+"2018-08-20 14:25:32.000 GMT","52.53.233.88","REST.GET.OBJECT","frothly_html_memcached.tar.gz",200
+"2018-08-20 14:25:32.000 GMT","52.53.233.88","REST.GET.OBJECT","frothly_html_memcached.tar.gz",301

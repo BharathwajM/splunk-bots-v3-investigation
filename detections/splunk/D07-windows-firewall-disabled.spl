@@ -1,0 +1,10 @@
+```
+D07 Windows Firewall turned off from the command line (T1562.004)
+Sysmon event 1. Sigma version: detections/sigma/D07-windows-firewall-disabled.yml
+```
+index=botsv3 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>" netsh
+| rex "Name='CommandLine'>(?<cmd>[^<]+)"
+| rex "Name='User'>(?<user>[^<]+)"
+| where match(lower(cmd), "netsh(\.exe)?\"?\s+(advfirewall\s+set\s+\S+\s+state\s+off|firewall\s+set\s+opmode\s+(mode=)?disable)")
+| stats min(_time) as first_alert count values(cmd) as commands by host user
+| eval first_alert=strftime(first_alert, "%Y-%m-%d %H:%M:%S")

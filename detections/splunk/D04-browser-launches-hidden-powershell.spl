@@ -1,0 +1,16 @@
+```
+D04 A browser process launches PowerShell with an encoded or hidden command (T1059.001, T1204.002)
+Opening a downloaded .lnk in Edge makes browser_broker.exe the parent of the PowerShell it runs.
+Sysmon event 1. Sigma version: detections/sigma/D04-browser-launches-hidden-powershell.yml
+```
+index=botsv3 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>" powershell.exe
+| rex "Name='Image'>(?<image>[^<]+)"
+| rex "Name='ParentImage'>(?<parent>[^<]+)"
+| rex "Name='CommandLine'>(?<cmd>[^<]+)"
+| rex "Name='User'>(?<user>[^<]+)"
+| where match(lower(image), "\\\\powershell\.exe$")
+    AND match(lower(parent), "\\\\(browser_broker|microsoftedgecp|msedge|chrome|firefox|iexplore)\.exe$")
+    AND match(lower(cmd), "\s-(e|en|enc|enco|encod|encode|encoded|encodedcommand)\s|\s-w(indowstyle)?\s+(1|h)")
+| stats min(_time) as first_alert count by host user parent
+| eval first_alert=strftime(first_alert, "%Y-%m-%d %H:%M:%S")
+| sort first_alert

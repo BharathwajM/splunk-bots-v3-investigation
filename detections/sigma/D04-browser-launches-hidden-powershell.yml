@@ -1,0 +1,44 @@
+title: Browser Process Launches PowerShell With an Encoded or Hidden Command
+id: d1441b91-9b99-4ba3-b923-78ea64575253
+status: experimental
+description: |
+    PowerShell started by a browser process with -EncodedCommand or a hidden window. Opening a
+    downloaded or shared shortcut (.lnk) from Edge makes browser_broker.exe the parent of the
+    command it runs. In BOTS v3 this caught the Empire stager on all three victims.
+    Sigma version of detections/splunk/D04-browser-launches-hidden-powershell.spl.
+references:
+    - https://attack.mitre.org/techniques/T1059/001/
+    - https://attack.mitre.org/techniques/T1204/002/
+author: Bharathwaj Murali
+date: 2026-11-10
+tags:
+    - attack.execution
+    - attack.t1059.001
+    - attack.t1204.002
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_parent:
+        ParentImage|endswith:
+            - '\browser_broker.exe'
+            - '\MicrosoftEdgeCP.exe'
+            - '\msedge.exe'
+            - '\chrome.exe'
+            - '\firefox.exe'
+            - '\iexplore.exe'
+    selection_child:
+        Image|endswith: '\powershell.exe'
+    selection_flags:
+        CommandLine|contains:
+            - ' -e '
+            - ' -en '
+            - ' -enc '
+            - ' -encodedcommand '
+            - ' -w hidden'
+            - ' -w 1 '
+            - ' -windowstyle hidden'
+    condition: all of selection_*
+falsepositives:
+    - Rare. Some browser extensions or helper apps start PowerShell, but seldom with an encoded command
+level: high

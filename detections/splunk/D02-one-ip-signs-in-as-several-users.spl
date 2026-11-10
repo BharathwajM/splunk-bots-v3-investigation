@@ -1,0 +1,15 @@
+```
+D02 One IP signs in to O365 as several different users (T1078.004)
+An attacker holding several stolen passwords often uses them all from the same server.
+first_alert is when the second account signs in, which is when this would fire as a
+scheduled search over the last 24 hours. Excludes Microsoft's own addresses. A shared office
+or VPN egress IP will also match: list known egress IPs in the NOT clause once you have a baseline.
+```
+index=botsv3 sourcetype=ms:o365:management Operation=UserLoggedIn
+| where NOT cidrmatch("40.0.0.0/8", ClientIP) AND NOT cidrmatch("52.96.0.0/12", ClientIP)
+| stats min(_time) as account_first_login by ClientIP UserId
+| sort 0 ClientIP account_first_login
+| streamstats count as nth values(UserId) as accounts by ClientIP
+| where nth = 2
+| eval first_alert=strftime(account_first_login, "%Y-%m-%d %H:%M:%S")
+| table first_alert ClientIP accounts

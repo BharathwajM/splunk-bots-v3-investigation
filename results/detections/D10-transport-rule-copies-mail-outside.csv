@@ -1,0 +1,3 @@
+"_time",UserId,ClientIP,Operation,why
+"2018-08-20 11:21:40.000 GMT","fyodor@froth.ly","199.66.91.253:40460","New-TransportRule","mail copied to BlindCopyTo=hyunki1984@naver.com"
+"2018-08-20 10:48:28.000 GMT","fyodor@froth.ly","104.207.83.63:21974","New-MailboxSearch","search across all mailboxes"

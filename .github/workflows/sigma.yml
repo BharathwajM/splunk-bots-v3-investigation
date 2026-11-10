@@ -1,0 +1,60 @@
+name: Sigma rules
+
+on:
+  push:
+    paths: ['detections/sigma/**', '.github/workflows/sigma.yml']
+  pull_request:
+    paths: ['detections/sigma/**', '.github/workflows/sigma.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Explicit bash adds pipefail, so a failing sigma command fails the step even when piped to tee.
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  check-and-convert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.12'
+      - name: Install sigma-cli and the Splunk backend
+        run: pip install sigma-cli pysigma-backend-splunk
+      - name: Check rules against the Sigma specification
+        run: sigma check --fail-on-error --fail-on-issues detections/sigma/ | tee check.txt
+      - name: Convert the Windows rules to Splunk SPL (Sysmon field mapping)
+        run: |
+          sigma convert --target splunk --pipeline splunk_windows \
+            detections/sigma/D04-*.yml detections/sigma/D05-*.yml \
+            detections/sigma/D06-*.yml detections/sigma/D07-*.yml | tee converted.spl
+      - name: Convert the Linux and AWS rules to Splunk SPL (fields as written)
+        run: |
+          sigma convert --target splunk --without-pipeline \
+            detections/sigma/D08-*.yml detections/sigma/D09*.yml \
+            detections/sigma/D11-*.yml detections/sigma/D12-*.yml | tee -a converted.spl
+      - name: Show the results on the run summary
+        run: |
+          {
+            echo '## sigma check'
+            echo '```'; cat check.txt; echo '```'
+            echo '## Converted to Splunk SPL'
+            echo '```'; cat converted.spl; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Publish the results as annotations (readable without signing in)
+        shell: python
+        run: |
+          def notice(title, text):
+              text = text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+              print(f"::notice title={title}::{text}")
+          notice("sigma check", open("check.txt").read().strip())
+          queries = [q for q in open("converted.spl").read().splitlines() if q.strip()]
+          for i in range(0, len(queries), 3):
+              notice(f"Splunk SPL {i // 3 + 1}", "\n\n".join(queries[i:i + 3]))

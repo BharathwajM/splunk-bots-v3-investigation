@@ -1,0 +1,13 @@
+```
+D06 A local account is created or added to the Administrators group from the command line (T1136.001, T1098)
+Sysmon event 1. Sigma version: detections/sigma/D06-local-admin-from-command-line.yml
+```
+index=botsv3 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>" (net.exe OR net1.exe)
+| rex "Name='Image'>(?<image>[^<]+)"
+| rex "Name='CommandLine'>(?<cmd>[^<]+)"
+| rex "Name='User'>(?<user>[^<]+)"
+| where match(lower(image), "\\\\net1?\.exe$")
+    AND (match(lower(cmd), "\suser\s+.*/add") OR match(lower(cmd), "localgroup\s+administrators\s+.*/add"))
+| eval cmd=replace(cmd, "(?i)(user\s+/add\s+\S+)\s+\S+", "\1 <password removed>")
+| stats min(_time) as first_alert count values(cmd) as commands by host user
+| eval first_alert=strftime(first_alert, "%Y-%m-%d %H:%M:%S")

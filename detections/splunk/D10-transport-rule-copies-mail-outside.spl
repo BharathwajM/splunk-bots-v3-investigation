@@ -1,0 +1,16 @@
+```
+D10 An Exchange transport rule copies or redirects mail to an outside address (T1114.003)
+A rule with BlindCopyTo, CopyTo or RedirectMessageTo pointing outside the company's domains
+quietly sends mail to someone else. Also flags all-mailbox searches (T1114.002).
+```
+index=botsv3 sourcetype=ms:o365:management Workload=Exchange
+    (Operation=New-TransportRule OR Operation=Set-TransportRule OR Operation=New-MailboxSearch OR Operation=New-ComplianceSearch)
+| spath Parameters{}.Name output=pn
+| spath Parameters{}.Value output=pv
+| eval p=mvzip(pn, pv, "=")
+| eval target=mvfilter(match(p, "^(BlindCopyTo|CopyTo|RedirectMessageTo|AddToRecipients)="))
+| eval all_mailboxes=mvfilter(match(p, "^AllSourceMailboxes=True"))
+| eval target_domain=lower(replace(mvindex(target, 0), "^[^@]*@", ""))
+| where (isnotnull(target) AND NOT target_domain IN ("froth.ly", "frothly.onmicrosoft.com")) OR isnotnull(all_mailboxes)
+| eval why=if(isnotnull(target), "mail copied to ".mvindex(target, 0), "search across all mailboxes")
+| table _time UserId ClientIP Operation why

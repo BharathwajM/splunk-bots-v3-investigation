@@ -1,0 +1,12 @@
+```
+Step 5b - The encoded payloads themselves, one row per distinct payload, for scripts/decode_enc.py.
+Export as CSV, then: python -I scripts/decode_enc.py 05b-empire-payloads.csv
+```
+index=botsv3 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID>" "-enc"
+| rex "Name='CommandLine'>(?<cmd>[^<]+)"
+| rex "Name='User'>(?<user>[^<]+)"
+| rex field=cmd "(?i)-enc\w*\s+(?<b64>[A-Za-z0-9+/=]{20,})"
+| where isnotnull(b64)
+| sort 0 _time
+| dedup b64
+| table _time host user b64

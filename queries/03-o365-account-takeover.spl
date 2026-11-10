@@ -1,0 +1,7 @@
+```
+Step 3 - The attacker signs in to O365 as bgist (09:51) and later as fyodor (10:47)
+from 104.207.83.63, and what each session did.
+```
+index=botsv3 sourcetype=ms:o365:management ClientIP="104.207.83.63"
+| stats count min(_time) as first max(_time) as last values(Operation) as operations by UserId
+| eval first=strftime(first, "%H:%M:%S"), last=strftime(last, "%H:%M:%S")

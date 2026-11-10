@@ -1,0 +1,15 @@
+```
+Step 9 - Remote code execution on hoth (192.168.9.30) through the Struts app on port 8080.
+Commands run as the tomcat8 service user (uid 111), captured by osquery.
+```
+index=botsv3 host=hoth sourcetype=osquery:results name=pack_process-monitoring_proc_events
+| spath columns.cmdline output=cmd
+| spath columns.uid output=uid
+| spath columns.euid output=euid
+| spath columns.time output=process_time
+| where uid="111" AND NOT like(cmd, "\"/bin/bash\" \"-c\"%")
+| eval process_time=strftime(process_time, "%H:%M:%S")
+| eval cmd=replace(cmd, "(\"-p\" \")[^\"]+", "\1<password removed>")
+| eval cmd=substr(cmd, 1, 160)
+| table process_time uid euid cmd
+| sort process_time

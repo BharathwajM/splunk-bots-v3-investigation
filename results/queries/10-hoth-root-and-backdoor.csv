@@ -1,0 +1,12 @@
+"_time",sourcetype,euid,what
+"2018-08-20 11:08:05.000 GMT","osquery:results",111,"""useradd"" ""-ou"" ""tomcat7"" ""-p"" ""<password removed>"" ""0"" ""-g"" ""0"" ""-M"" ""-N"" ""-r"" ""-s"" ""/bin/bash"""
+"2018-08-20 11:11:04.000 GMT","osquery:results",111,"""base64"" ""--decode"" ""/tmp/colonel"""
+"2018-08-20 11:12:04.000 GMT","osquery:results",111,"""md5sum"" ""/tmp/colonel.c"""
+"2018-08-20 11:12:04.000 GMT","osquery:results",111,"""cat"" ""/tmp/colonel.c"""
+"2018-08-20 11:15:01.000 GMT","osquery:results",111,"""/usr/lib/gcc/x86_64-linux-gnu/5/cc1"" ""-quiet"" ""-auxbase"" ""colonel"" ""-fstack-protector-strong"" ""-Wformat"" ""-Wformat-security"" ""-o"" ""/tmp/cclBJ1WV.s"" ""-imultiarc"
+"2018-08-20 11:15:01.000 GMT","osquery:results",111,"""gcc"" ""colonel.c"" ""-o"" ""colonelnew"""
+"2018-08-20 11:18:59.000 GMT","osquery:results",0,"""grep"" ""x:0:"" ""/etc/passwd"""
+"2018-08-20 11:24:44.000 GMT",syslog,,"Aug 20 11:24:44 hoth useradd[12815]: new user: name=tomcat7, UID=0, GID=0, home=/home/tomcat7, shell=/bin/bash"
+"2018-08-20 11:24:54.000 GMT","osquery:results",0,"""useradd"" ""-ou"" ""tomcat7"" ""-p"" ""<password removed>"" ""0"" ""-g"" ""0"" ""-M"" ""-N"" ""-r"" ""-s"" ""/bin/bash"""
+"2018-08-20 11:24:54.000 GMT","osquery:results",0,"""cat"" ""/tmp/loot.txt"""
+"2018-08-20 11:41:44.000 GMT","osquery:results",0,"""tar"" ""czvf"" ""blargh.tgz"" ""suitecrm.sql"" ""loot.txt"""

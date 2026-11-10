@@ -1,0 +1,11 @@
+```
+AWS thread - the AWS support-case email naming the public GitHub file that held the key,
+and the moment the key was disabled.
+```
+index=botsv3 (sourcetype=stream:smtp "AKIAJOGCDXJ5NW5PXUPA") OR (sourcetype=aws:cloudtrail eventName=UpdateAccessKey)
+| spath subject
+| spath sender
+| eval event=coalesce(eventName, subject)
+| eval detail=coalesce('requestParameters.status'." key ".'requestParameters.accessKeyId'." for ".'requestParameters.userName', "from ".sender)
+| table _time sourcetype event detail
+| sort _time

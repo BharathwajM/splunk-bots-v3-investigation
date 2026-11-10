@@ -1,0 +1,31 @@
+type,value,role,first_seen_utc
+ip,45.77.53.176,"Phishing sender and site, Empire C2 (443), tool download (3333), reverse shell (8088)",2018-08-20 09:48:17
+ip,104.207.83.63,Microsoft 365 sign-ins as bgist and fyodor,2018-08-20 09:51:09
+ip,199.66.91.253,Transport rule and role group change as fyodor (may be shared),2018-08-20 11:21:40
+ip,35.153.154.221,Leaked AWS key: CreateUser and CreateAccessKey attempts,2018-08-20 09:16:12
+ip,139.198.18.205,Leaked AWS key: 576 RunInstances attempts,2018-08-20 09:16:14
+ip,209.107.196.112,Leaked AWS key: ListAccessKeys,2018-08-20 09:16:18
+ip,82.102.18.111,Leaked AWS key: GetUser,2018-08-20 09:27:06
+ip,52.66.146.128,Wrote OPEN_BUCKET_PLEASE_FIX.txt to the public bucket,2018-08-20 13:02:44
+ip,35.182.246.222,Downloaded and overwrote frothly_html_memcached.tar.gz,2018-08-20 13:03:46
+domain,frothly.com,Look-alike phishing domain (real domain froth.ly),2018-08-20 09:48:17
+email,it@frothly.com,Phishing sender,2018-08-20 09:48:17
+email,hyunki1984@naver.com,Blind-copy target of the transport rule,2018-08-20 11:21:40
+url,https://45.77.53.176:443/admin/get.php,Empire C2,2018-08-20 09:59:48
+url,https://45.77.53.176:443/login/process.php,Empire C2,2018-08-20 10:15:27
+url,https://45.77.53.176:443/news.php,Empire C2,2018-08-20 11:32:13
+url,http://45.77.53.176:3333/images/logos.png,Tool download,2018-08-20 10:47:16
+sha256,7A1367EFBA05B09E317909B040C3CDA972544212B4F9DB639237492351A3A405,Bruce Birthday Happy Hour Pics.lnk (Backdoor.PsEmpire),2018-08-20 09:58:20
+sha256,EC732909362C261F3D7DF4A1D68BAA0133509FB36DD870658B0081108E1FA838,iexeplorer.exe (Struts exploit tool),2018-08-20 11:05:40
+file,C:\Windows\Temp\unziped\lsof-master\iexeplorer.exe,Struts exploit tool on FYODOR-L,2018-08-20 10:47:41
+file,/tmp/colonel.c,Kernel exploit source on hoth,2018-08-20 11:10:59
+file,/tmp/backpipe,Named pipe for the reverse shell on hoth,2018-08-20 11:12:58
+file,/var/www/html/suitecrm/blargh.tgz,Staged archive of suitecrm.sql and loot.txt,2018-08-20 11:42:43
+account,svcvnc,Backdoor local admin on FYODOR-L,2018-08-20 10:08:17
+account,tomcat7,Backdoor uid 0 account on hoth,2018-08-20 11:24:44
+registry,HKCU\Software\Microsoft\Windows Update (value Update),Empire payload storage,2018-08-20 10:07:06
+registry,HKLM\Software\Microsoft\Network (value debug),Empire payload storage,2018-08-20 10:09:44
+scheduled_task,Updater,SYSTEM persistence (deleted 10:16:54),2018-08-20 10:09:44
+exchange,SOX,Name of the all-mailbox search and the transport rule,2018-08-20 10:48:28
+aws_access_key,AKIAJOGCDXJ5NW5PXUPA,web_admin key leaked on GitHub (deactivated 09:36:12),2018-08-20 09:16:12
+user_agent,Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko,Empire agent,2018-08-20 09:59:48

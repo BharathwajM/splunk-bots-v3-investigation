@@ -1,0 +1,22 @@
+== 2018-08-20 09:59:48.000 GMT BSTOLL-L AzureAD\BudStoll: 1992 characters decoded
+   urls       https://45.77.53.176:443
+   user_agent Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko
+   uri        /admin/get.php
+   cookie     PthAVgs=bKQxpuOd5LPCjyfRC1BxPqQ8FWI=
+== 2018-08-20 10:07:06.000 GMT FYODOR-L AzureAD\FyodorMalteskesko: 1992 characters decoded
+   urls       https://45.77.53.176:443
+   user_agent Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko
+   uri        /admin/get.php
+   cookie     PthAVgs=hB2H0GTIpwxCeLhGe/fLkfBpCdI=
+== 2018-08-20 10:15:27.000 GMT FYODOR-L NT AUTHORITY\SYSTEM: 1996 characters decoded
+   urls       https://45.77.53.176:443
+   user_agent Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko
+   uri        /login/process.php
+   cookie     PthAVgs=G3dqnhr9M/vsRZosKQQH1HpDzGg=
+== 2018-08-20 11:32:13.000 GMT FYODOR-L AzureAD\FyodorMalteskesko: 1987 characters decoded
+   urls       https://45.77.53.176:443
+   user_agent Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko
+   uri        /news.php
+   cookie     PthAVgs=vv6rWR40pYRKyx8a0H3op72odVU=
+== 2018-08-20 11:57:15.000 GMT ABUNGST-L AzureAD\AlBungstein: 69 characters decoded
+   urls       http://bit.ly/e0Mw9w

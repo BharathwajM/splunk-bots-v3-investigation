@@ -1,0 +1,3 @@
+"_time",sourcetype,event,detail
+"2018-08-20 09:16:55.260 GMT","stream:smtp","Amazon Web Services: New Support case: 5244329601","from Amazon Web Services <no-reply-aws@amazon.com>"
+"2018-08-20 09:36:12.000 GMT","aws:cloudtrail",UpdateAccessKey,"Inactive key AKIAJOGCDXJ5NW5PXUPA for web_admin"

@@ -1,0 +1,12 @@
+```
+D11 One AWS key fails to launch instances in several regions within 10 minutes (T1496, T1078.004)
+Crypto-mining with a stolen key looks like this: many large instance types, many regions, many errors.
+Sigma version: detections/sigma/D11-runinstances-failing-in-many-regions.yml
+```
+index=botsv3 sourcetype=aws:cloudtrail eventName=RunInstances errorCode=*
+| eval event_time=_time
+| bin _time span=10m
+| stats dc(awsRegion) as regions count as failures min(event_time) as first_failure values(sourceIPAddress) as source_ip by _time userIdentity.accessKeyId userIdentity.userName
+| where regions >= 3
+| stats min(first_failure) as first_alert sum(failures) as failures max(regions) as max_regions values(source_ip) as source_ip by userIdentity.userName userIdentity.accessKeyId
+| eval first_alert=strftime(first_alert, "%Y-%m-%d %H:%M:%S")

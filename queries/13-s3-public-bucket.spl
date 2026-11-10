@@ -1,0 +1,9 @@
+```
+AWS thread - bucket frothlywebcode is made publicly writable at 13:01:46 and fixed at 13:57:54.
+In between, outside IPs upload OPEN_BUCKET_PLEASE_FIX.txt and download the website code archive.
+```
+index=botsv3 sourcetype=aws:s3:accesslogs frothlywebcode
+| rex "^\S+ (?<bucket>\S+) \[[^\]]+\] (?<remote_ip>\S+) \S+ \S+ (?<operation>\S+) (?<key>\S+) \"[^\"]*\" (?<status>\d+)"
+| where bucket="frothlywebcode" AND (like(operation, "%.PUT.%") OR operation="REST.GET.OBJECT")
+| table _time remote_ip operation key status
+| sort _time

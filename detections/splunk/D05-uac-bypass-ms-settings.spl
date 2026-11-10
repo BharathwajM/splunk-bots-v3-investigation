@@ -1,0 +1,12 @@
+```
+D05 UAC bypass through the ms-settings registry key (T1548.002)
+fodhelper.exe auto-elevates and runs whatever is set in HKCU\...\ms-settings\Shell\Open\command.
+Normal software does not write this key. Sysmon event 13.
+Sigma version: detections/sigma/D05-uac-bypass-ms-settings.yml
+```
+index=botsv3 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>13</EventID>" "ms-settings"
+| rex "Name='TargetObject'>(?<target>[^<]+)"
+| rex "Name='Image'>(?<image>[^<]+)"
+| where match(lower(target), "\\\\ms-settings\\\\shell\\\\open\\\\command")
+| stats min(_time) as first_alert count values(target) as key by host image
+| eval first_alert=strftime(first_alert, "%Y-%m-%d %H:%M:%S")

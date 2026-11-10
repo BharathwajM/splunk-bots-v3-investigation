@@ -1,0 +1,8 @@
+host,user,integrity,"parent_name",count,first
+"BSTOLL-L","AzureAD\BudStoll",Medium,"browser_broker.exe",2,"09:59:48"
+"ABUNGST-L","AzureAD\AlBungstein",Medium,"browser_broker.exe",1,"10:00:54"
+"ABUNGST-L","AzureAD\AlBungstein",Medium,"powershell.exe",2,"10:00:59"
+"FYODOR-L","AzureAD\FyodorMalteskesko",Medium,"browser_broker.exe",1,"10:01:41"
+"FYODOR-L","AzureAD\FyodorMalteskesko",Medium,"powershell.exe",1,"10:01:44"
+"FYODOR-L","AzureAD\FyodorMalteskesko",High,"powershell.exe",2,"10:07:06"
+"FYODOR-L","NT AUTHORITY\SYSTEM",System,"WmiPrvSE.exe",1,"10:15:27"

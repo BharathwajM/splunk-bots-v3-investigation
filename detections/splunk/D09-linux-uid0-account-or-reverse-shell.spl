@@ -1,0 +1,14 @@
+```
+D09 Linux: a second uid 0 account, or a named-pipe reverse shell (T1136.001, T1059.004)
+Two strong signals from the same intrusion: useradd creating an account with UID 0 (syslog),
+and mknod ... p, the named pipe used to wire /bin/sh to netcat (osquery).
+Sigma versions: detections/sigma/D09a-useradd-uid-0.yml and D09b-named-pipe-reverse-shell.yml
+```
+index=botsv3
+    ((sourcetype=syslog "useradd" "new user" "UID=0")
+     OR (sourcetype=osquery:results name=pack_process-monitoring_proc_events "mknod"))
+| spath columns.cmdline output=cmd
+| where isnull(cmd) OR match(cmd, "^\"mknod\" .* \"p\"$")
+| eval signal=if(sourcetype="syslog", "uid 0 account created", "named pipe created (reverse shell)")
+| stats min(_time) as first_alert count by host signal
+| eval first_alert=strftime(first_alert, "%Y-%m-%d %H:%M:%S")

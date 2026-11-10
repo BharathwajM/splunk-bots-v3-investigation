@@ -1,0 +1,9 @@
+"_time",Operation,ClientIP,parameters
+"2018-08-20 10:48:28.000 GMT","New-MailboxSearch","104.207.83.63:21974","Name=SOX | SearchQuery=cromdale OR beer OR financial OR secret  | AllSourceMailboxes=True | EstimateOnly=True"
+"2018-08-20 10:48:32.000 GMT","Start-MailboxSearch","104.207.83.63:21974","Identity=AAMkAGZiYTE2MThiLWVhMmUtNDMwNi1hMTExLThlZmJmNzY1MzJiYQBGAAAAAADe8K9lDcjETZLcc29jhHBJBwBNDAoWPpskRpMR7j3rG+jTAAAAAAEfAABNDAoWPpskRpMR7j3rG+jTAABTcgzSAAA= | Force=True"
+"2018-08-20 11:09:59.000 GMT","Add-RecipientPermission","104.207.83.63:17168","Identity=ghoppy | Trustee=fyodor | AccessRights=SendAs"
+"2018-08-20 11:10:00.000 GMT","Add-MailboxPermission","104.207.83.63:17168","Identity=ghoppy | User=NAMPR17A005\fyodo52181-987266098 | AccessRights=FullAccess | InheritanceType=All"
+"2018-08-20 11:21:40.000 GMT","New-TransportRule","199.66.91.253:40460","BlindCopyTo=hyunki1984@naver.com | Name=SOX | StopRuleProcessing=False | Mode=Enforce | Comments= | RuleErrorAction=Ignore | SenderAddressLocation=Header"
+"2018-08-20 11:27:29.000 GMT","Update-RoleGroupMember","199.66.91.253:47343","Members=bstoll;fyodor;klagerfield | Identity=Discovery Management"
+"2018-08-20 11:43:02.000 GMT","Set-Mailbox","[2a01:111:f100:1002::4134:c440]:15831","Identity=NAMPR17A005.PROD.OUTLOOK.COM/Microsoft Exchange Hosted Organizations/frothly.onmicrosoft.com/klagerfield | StsRefreshTokensValidFrom=7/25/2018 8:18:52 PM"
+"2018-08-20 14:47:15.000 GMT","Set-Mailbox","[2a01:111:f100:3002::8987:3552]:19711","Identity=NAMPR17A005.PROD.OUTLOOK.COM/Microsoft Exchange Hosted Organizations/frothly.onmicrosoft.com/bgist | AccountDisabled=True"
